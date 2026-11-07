@@ -1,0 +1,6 @@
+[build]
+  # Change this to point to your main entry point
+  cmd = "go build -o ./tmp/main.exe ./cmd/main.go"
+
+  # This runs the compiled binary
+  bin = "./tmp/main.exe"

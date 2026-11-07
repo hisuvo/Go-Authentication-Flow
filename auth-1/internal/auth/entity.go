@@ -1,3 +1,7 @@
 package auth
 
-type Sesstion struct{}
+import "gorm.io/gorm"
+
+type Sesstion struct {
+	gorm.Model
+}

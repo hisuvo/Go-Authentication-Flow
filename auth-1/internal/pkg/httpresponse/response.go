@@ -71,3 +71,32 @@ func Conflict(c *echo.Context, message string, errors interface{}) error {
 func InternalServerError(c *echo.Context, message string) error {
 	return Error(c, http.StatusInternalServerError, message, nil)
 }
+
+// Pagination repasent pagination metadata
+type Pagination struct {
+	Total 	int 	`json:"total"`
+	Page	int 	`json:"page"`
+	Limit 	int		`json:"limit"`
+	TotalPages  int64 `json:"total_pages"`
+}
+
+type PaginatedReponse struct {
+	Success	bool	`json:"success"`
+	Message	string	`json:"message"`
+	Data	any		`json:"data"`
+	Pagination	Pagination	`json:"pagination"`
+}
+
+func Paginated(c *echo.Context, message string, data any, pagination Pagination) error {
+	return c.JSON(http.StatusOK, PaginatedReponse{
+		Success: true,
+		Message: message,
+		Data: data,
+		Pagination: Pagination{
+			Total: pagination.Total,
+			Limit: pagination.Limit,
+			Page: pagination.Page,
+			TotalPages: pagination.TotalPages,
+		},
+	})
+}
